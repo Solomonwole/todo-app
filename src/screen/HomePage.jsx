@@ -50,7 +50,9 @@ function HomePage() {
               alignItems="center"
             >
               <Stack spacing={0.5}>
-                <Typography variant="h3">Hello {user.username},</Typography>
+              {user && user.username && (
+                  <Typography variant="h3">Hello {user.username},</Typography>
+                )}
                 <Typography variant="body1">Let's get work started!</Typography>
               </Stack>
 
