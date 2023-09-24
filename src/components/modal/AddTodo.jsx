@@ -85,37 +85,21 @@ function AddTodo({ open, setOpen, updateTodoList }) {
   };
 
   const formats = [
-    // "font",
-    "image",
     "blockquote",
-    "header",
-    "indent",
     "list",
-    "align",
-    "direction",
-    "code-block",
     "underline",
     "strike",
     "link",
-    "size",
     "italic",
     "color",
     "bold",
   ];
   const modules = {
     toolbar: [
-      [{ font: [] }],
-      //   [{ size: ["small", false, "large", "huge"] }],
       ["bold", "italic", "underline", "strike"],
-      [{ color: [] }, { background: [] }],
-      [{ script: "sub" }, { script: "super" }],
-      ["blockquote", "code-block"],
+      [{ color: [] },],
+      ["blockquote"],
       [{ list: "ordered" }, { list: "bullet" }],
-      [{ indent: "-1" }, { indent: "+1" }],
-      ["align"],
-      ["direction"],
-      ["link", "image"],
-      ["clean"],
     ],
   };
   return (
