@@ -15,30 +15,57 @@ import empty from "../../assets/empty.svg";
 import nodata from "../../assets/nodata.svg";
 
 function formatRelativeDate(date) {
-  const today = new Date();
-  const yesterday = new Date(today);
-  yesterday.setDate(yesterday.getDate() - 1);
-  const tomorrow = new Date(today);
-  tomorrow.setDate(tomorrow.getDate() + 1);
-
-  if (date.toDateString() === today.toDateString()) {
-    return "Today";
-  } else if (date.toDateString() === yesterday.toDateString()) {
-    return "Yesterday";
-  } else if (date.toDateString() === tomorrow.toDateString()) {
-    return "Tomorrow";
-  } else {
-    const daysOfWeek = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+  
+    const day = date.getDate();
+    const monthNames = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
     ];
-    return daysOfWeek[date.getDay()];
+    const month = monthNames[date.getMonth()];
+  
+    if (date.toDateString() === today.toDateString()) {
+      return "Today";
+    } else if (date.toDateString() === tomorrow.toDateString()) {
+      return "Tomorrow";
+    } else {
+      const daySuffix =
+        day === 1 || day === 21 || day === 31
+          ? "st"
+          : day === 2 || day === 22
+          ? "nd"
+          : day === 3 || day === 23
+          ? "rd"
+          : "th";
+      return `${day}${daySuffix} ${month}`;
+    }
   }
+  
+
+function formatTime12Hour(timeStr) {
+  if (!timeStr) return ""; // Return an empty string if no time is provided
+
+  const [hours, minutes] = timeStr.split(":");
+  const parsedHours = parseInt(hours, 10);
+  const ampm = parsedHours >= 12 ? "PM" : "AM";
+
+  // Convert hours from 24-hour format to 12-hour format
+  const formattedHours =
+    parsedHours === 0 ? 12 : parsedHours > 12 ? parsedHours - 12 : parsedHours;
+
+  return `${formattedHours}:${minutes} ${ampm}`;
 }
 
 function TodoList({ todoList, setTodoList, cardState }) {
@@ -177,7 +204,9 @@ function TodoList({ todoList, setTodoList, cardState }) {
                                 <BsFillClockFill
                                   color={theme.palette.textPrimary.main}
                                 />
-                                <Typography>{todo.time}</Typography>
+                                <Typography>
+                                  {formatTime12Hour(todo.time)}
+                                </Typography>
                               </Stack>
                             )}
                           </Stack>
@@ -197,14 +226,27 @@ function TodoList({ todoList, setTodoList, cardState }) {
                       </IconButton>
                     </Stack>
 
-                    <Stack direction="row" alignItems="center" spacing={2}>
+                    <Box sx={{ display: "flex", gap: 2 }}>
                       <BsFillCheckCircleFill color="transparent" size={30} />
                       {expandedTodoId === todo.id && (
-                        <Typography variant="body1" mt={2}>
-                          {todo.description}
-                        </Typography>
+                        // <Typography variant="body1" mt={2}>
+                        //   {todo.description}
+                        // </Typography>
+                        <Box
+                          className="desc"
+                          width="90%"
+                          sx={{ cursor: "pointer" }}
+                          onClick={() => toggleDescription(todo.id)}
+                          mt={2}
+                        >
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: todo.description,
+                            }}
+                          />
+                        </Box>
                       )}
-                    </Stack>
+                    </Box>
                   </Box>
                 </li>
               ))}

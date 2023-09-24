@@ -9,14 +9,50 @@
 
 body {
   background: #ffffff;
+  color: #000;
 }
 
-.MuiFilledInput-underline:before{
-  border-bottom : none !important ;
+.desc span {
+  color: #7b88a8 !important;
 }
-.MuiFilledInput-underline:hover:before{
-  border-bottom : none !important ;
+.desc p {
+  font-size: 14px !important;
+  color: #7b88a8 !important;
 }
-.MuiFilledInput-underline:after{
-  border-bottom : none !important ;
+
+.desc li {
+  font-size: 14px !important;
+}
+
+.MuiFilledInput-underline:before {
+  border-bottom: none !important ;
+}
+.MuiFilledInput-underline:hover:before {
+  border-bottom: none !important ;
+}
+.MuiFilledInput-underline:after {
+  border-bottom: none !important ;
+}
+.ql-editor.ql-blank::before {
+  color: #7b88a8 !important;
+  font-style: normal !important;
+}
+.ql-editor {
+  background: #f2f2f2f2;
+  border-radius: 0 0 8px 8px;
+}
+
+.ql-toolbar {
+  background: #f2f2f2f2;
+  border-radius: 8px 8px 0 0;
+}
+
+.ql-container.ql-snow {
+  border: 1px solid transparent !important;
+}
+.ql-toolbar.ql-snow {
+  border: 1px solid transparent !important;
+}
+.ql-editor p::placeholder {
+  color: #7b88a8 !important;
 }

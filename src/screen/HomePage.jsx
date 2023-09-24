@@ -1,5 +1,6 @@
 import {
   Box,
+  Chip,
   Container,
   Fab,
   IconButton,
@@ -58,6 +59,10 @@ function HomePage() {
   const doneCount = allTodoList.filter((todo) => todo.done).length;
   const pendingCount = allTodoList.filter((todo) => !todo.done).length;
 
+  const handleDelete = () => {
+    localStorage.clear();
+    setTodoList([]);
+  };
   return (
     <>
       <Container maxWidth="md">
@@ -140,73 +145,80 @@ function HomePage() {
                 {listTitle}
               </Typography>
 
-              <IconButton
-                aria-controls={openBool ? "basic-menu" : undefined}
-                aria-haspopup="true"
-                aria-expanded={openBool ? "true" : undefined}
-                onClick={handleClick}
-              >
-                <IoFilterSharp />
-              </IconButton>
+              <Stack direction="row" alignItems="center" spacing={2}>
+                <Chip
+                  label="Delete All"
+                  variant="outlined"
+                  onDelete={handleDelete}
+                />
+                <IconButton
+                  aria-controls={openBool ? "basic-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={openBool ? "true" : undefined}
+                  onClick={handleClick}
+                >
+                  <IoFilterSharp />
+                </IconButton>
 
-              <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={openBool}
-                onClose={handleClose}
-                MenuListProps={{
-                  "aria-labelledby": "basic-button",
-                }}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left",
-                }}
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "center",
-                }}
-              >
-                <MenuItem
-                  onClick={() => {
-                    setListTitle("Things to do Today");
-                    setTodoList(todayTodoList);
-                    setCardState(0);
-                    handleClose();
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={openBool}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    "aria-labelledby": "basic-button",
+                  }}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "center",
                   }}
                 >
-                  Today's Task
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    setListTitle("All Todo List");
-                    setTodoList(allTodoList);
-                    setCardState(1);
-                    handleClose();
-                  }}
-                >
-                  All Task
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    setListTitle("Completed");
-                    setTodoList(doneTodoList);
-                    setCardState(2);
-                    handleClose();
-                  }}
-                >
-                  Completed Tasks
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    setListTitle("Pending Todo");
-                    setTodoList(pendingTodoList);
-                    setCardState(3);
-                    handleClose();
-                  }}
-                >
-                  Pending Tasks
-                </MenuItem>
-              </Menu>
+                  <MenuItem
+                    onClick={() => {
+                      setListTitle("Things to do Today");
+                      setTodoList(todayTodoList);
+                      setCardState(0);
+                      handleClose();
+                    }}
+                  >
+                    Today's Task
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      setListTitle("All Todo List");
+                      setTodoList(allTodoList);
+                      setCardState(1);
+                      handleClose();
+                    }}
+                  >
+                    All Task
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      setListTitle("Completed");
+                      setTodoList(doneTodoList);
+                      setCardState(2);
+                      handleClose();
+                    }}
+                  >
+                    Completed Tasks
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      setListTitle("Pending Todo");
+                      setTodoList(pendingTodoList);
+                      setCardState(3);
+                      handleClose();
+                    }}
+                  >
+                    Pending Tasks
+                  </MenuItem>
+                </Menu>
+              </Stack>
             </Stack>
 
             <TodoList

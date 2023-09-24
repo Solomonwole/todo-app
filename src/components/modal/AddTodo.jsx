@@ -9,13 +9,16 @@ import {
 import React, { useState } from "react";
 import InputField, {
   InputFieldDate,
-  MultiField,
+  //   MultiField,
   TimeInputField,
 } from "../InputField";
 import { IoClose } from "react-icons/io5";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 function AddTodo({ open, setOpen, updateTodoList }) {
   const handleClose = () => setOpen(false);
+  const [description, setDescription] = useState("");
   const [todo, setTodo] = useState({
     title: "",
     description: "",
@@ -29,6 +32,15 @@ function AddTodo({ open, setOpen, updateTodoList }) {
     setTodo({
       ...todo,
       [name]: value,
+    });
+  };
+
+  // Event handler for ReactQuill's onChange event
+  const handleQuillChange = (value) => {
+    setDescription(value);
+    setTodo({
+      ...todo,
+      description: value, // Update the todo's description
     });
   };
 
@@ -67,10 +79,45 @@ function AddTodo({ open, setOpen, updateTodoList }) {
       date: "",
       time: "",
     });
+    setDescription("");
 
     handleClose();
   };
 
+  const formats = [
+    // "font",
+    "image",
+    "blockquote",
+    "header",
+    "indent",
+    "list",
+    "align",
+    "direction",
+    "code-block",
+    "underline",
+    "strike",
+    "link",
+    "size",
+    "italic",
+    "color",
+    "bold",
+  ];
+  const modules = {
+    toolbar: [
+      [{ font: [] }],
+      //   [{ size: ["small", false, "large", "huge"] }],
+      ["bold", "italic", "underline", "strike"],
+      [{ color: [] }, { background: [] }],
+      [{ script: "sub" }, { script: "super" }],
+      ["blockquote", "code-block"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      [{ indent: "-1" }, { indent: "+1" }],
+      ["align"],
+      ["direction"],
+      ["link", "image"],
+      ["clean"],
+    ],
+  };
   return (
     <>
       <Modal
@@ -108,13 +155,23 @@ function AddTodo({ open, setOpen, updateTodoList }) {
                 value={todo.title}
                 onChange={handleInputChange}
               />
-              <MultiField
+              {/* <MultiField
                 type="text"
                 name="description"
                 label="Todo Description"
                 value={todo.description}
                 onChange={handleInputChange}
+              /> */}
+
+              <ReactQuill
+                theme="snow"
+                value={description}
+                onChange={handleQuillChange}
+                placeholder="Enter Description"
+                formats={formats}
+                modules={modules}
               />
+
               <Stack direction="row" spacing={1}>
                 <InputFieldDate
                   type="date"
@@ -156,8 +213,10 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: { xs: "92%", md: 500 },
+  maxHeight: { xs: "90vh", md: "80vh" },
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
   borderRadius: "8px",
+  overflow: "auto",
 };
