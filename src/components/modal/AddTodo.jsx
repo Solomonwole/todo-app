@@ -93,7 +93,10 @@ function AddTodo({ open, setOpen, updateTodoList }) {
             </IconButton>
           </Stack>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            You can specify various details for the todo item, such as its
+            title, description, date, and time. Once you've filled in the
+            necessary information, click the "Add Todo" button to create the new
+            todo item.
           </Typography>
 
           <Box component="form" mt={3} onSubmit={handleFormSubmit}>
