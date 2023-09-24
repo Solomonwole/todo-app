@@ -1,4 +1,13 @@
-import { Box, Container, Fab, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Container,
+  Fab,
+  IconButton,
+  Menu,
+  MenuItem,
+  Stack,
+  Typography,
+} from "@mui/material";
 import React, { useEffect } from "react";
 import UserAvatar from "../components/avartar/Avatar";
 import TodoCards from "../components/cards/Cards";
@@ -8,6 +17,7 @@ import { BsCheckLg, BsHourglassSplit, BsPlusLg } from "react-icons/bs";
 import AddTodo from "../components/modal/AddTodo";
 import theme from "../mui/theme";
 import TodoList from "../components/todoList/TodoList";
+import { IoFilterSharp } from "react-icons/io5";
 
 function HomePage() {
   const userDataString = localStorage.getItem("user");
@@ -17,6 +27,15 @@ function HomePage() {
   const [todoList, setTodoList] = React.useState([]);
   const [listTitle, setListTitle] = React.useState("All Todo List");
   const [cardState, setCardState] = React.useState(0);
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const openBool = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const updateTodoList = (newTodoList) => {
     setTodoList(newTodoList);
@@ -50,7 +69,7 @@ function HomePage() {
               alignItems="center"
             >
               <Stack spacing={0.5}>
-              {user && user.username && (
+                {user && user.username && (
                   <Typography variant="h3">Hello {user.username},</Typography>
                 )}
                 <Typography variant="body1">Let's get work started!</Typography>
@@ -90,7 +109,7 @@ function HomePage() {
               <TodoCards
                 color="#CFF3E9"
                 icon={<BsCheckLg color="#CFF3E9" size={20} />}
-                text="Done"
+                text="Completed"
                 number={doneCount}
                 onClick={() => {
                   setListTitle("Completed");
@@ -112,9 +131,84 @@ function HomePage() {
               />
             </Box>
 
-            <Typography variant="h2" mt={5} mb={3}>
-              {listTitle}
-            </Typography>
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Typography variant="h2" mt={5} mb={3}>
+                {listTitle}
+              </Typography>
+
+              <IconButton
+                aria-controls={openBool ? "basic-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={openBool ? "true" : undefined}
+                onClick={handleClick}
+              >
+                <IoFilterSharp />
+              </IconButton>
+
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={openBool}
+                onClose={handleClose}
+                MenuListProps={{
+                  "aria-labelledby": "basic-button",
+                }}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "center",
+                }}
+              >
+                <MenuItem
+                  onClick={() => {
+                    setListTitle("Things to do Today");
+                    setTodoList(todayTodoList);
+                    setCardState(0);
+                    handleClose();
+                  }}
+                >
+                  Today's Task
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    setListTitle("All Todo List");
+                    setTodoList(allTodoList);
+                    setCardState(1);
+                    handleClose();
+                  }}
+                >
+                  All Task
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    setListTitle("Completed");
+                    setTodoList(doneTodoList);
+                    setCardState(2);
+                    handleClose();
+                  }}
+                >
+                  Completed Tasks
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    setListTitle("Pending Todo");
+                    setTodoList(pendingTodoList);
+                    setCardState(3);
+                    handleClose();
+                  }}
+                >
+                  Pending Tasks
+                </MenuItem>
+              </Menu>
+            </Stack>
+
             <TodoList
               todoList={todoList}
               setTodoList={setTodoList}
