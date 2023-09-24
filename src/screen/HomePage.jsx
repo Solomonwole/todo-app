@@ -42,7 +42,7 @@ function HomePage() {
   return (
     <>
       <Container maxWidth="md">
-        <Box pt={2}>
+        <Box pt={2} pb={4}>
           <Stack>
             <Stack
               direction="row"
