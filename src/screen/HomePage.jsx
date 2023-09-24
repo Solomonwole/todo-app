@@ -9,7 +9,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import UserAvatar from "../components/avartar/Avatar";
 import TodoCards from "../components/cards/Cards";
 import { BiTimeFive } from "react-icons/bi";
@@ -46,6 +46,8 @@ function HomePage() {
     const storedTodoList = JSON.parse(localStorage.getItem("todoList")) || [];
     setTodoList(storedTodoList);
   }, [setTodoList]);
+
+  const memoizedTodoList = useMemo(() => [...todoList].reverse(), [todoList]);
 
   const newToday = new Date().toISOString().split("T")[0];
 
@@ -146,11 +148,13 @@ function HomePage() {
               </Typography>
 
               <Stack direction="row" alignItems="center" spacing={2}>
-                <Chip
-                  label="Delete All"
-                  variant="outlined"
-                  onDelete={handleDelete}
-                />
+                {memoizedTodoList.length > 2 && (
+                  <Chip
+                    label="Delete All"
+                    variant="outlined"
+                    onDelete={handleDelete}
+                  />
+                )}
                 <IconButton
                   aria-controls={openBool ? "basic-menu" : undefined}
                   aria-haspopup="true"
@@ -225,6 +229,7 @@ function HomePage() {
               todoList={todoList}
               setTodoList={setTodoList}
               cardState={cardState}
+              memoizedTodoList={memoizedTodoList}
             />
 
             <Fab

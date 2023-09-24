@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Checkbox,
@@ -15,44 +15,43 @@ import empty from "../../assets/empty.svg";
 import nodata from "../../assets/nodata.svg";
 
 function formatRelativeDate(date) {
-    const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-  
-    const day = date.getDate();
-    const monthNames = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-    const month = monthNames[date.getMonth()];
-  
-    if (date.toDateString() === today.toDateString()) {
-      return "Today";
-    } else if (date.toDateString() === tomorrow.toDateString()) {
-      return "Tomorrow";
-    } else {
-      const daySuffix =
-        day === 1 || day === 21 || day === 31
-          ? "st"
-          : day === 2 || day === 22
-          ? "nd"
-          : day === 3 || day === 23
-          ? "rd"
-          : "th";
-      return `${day}${daySuffix} ${month}`;
-    }
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
+  const day = date.getDate();
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const month = monthNames[date.getMonth()];
+
+  if (date.toDateString() === today.toDateString()) {
+    return "Today";
+  } else if (date.toDateString() === tomorrow.toDateString()) {
+    return "Tomorrow";
+  } else {
+    const daySuffix =
+      day === 1 || day === 21 || day === 31
+        ? "st"
+        : day === 2 || day === 22
+        ? "nd"
+        : day === 3 || day === 23
+        ? "rd"
+        : "th";
+    return `${day}${daySuffix} ${month}`;
   }
-  
+}
 
 function formatTime12Hour(timeStr) {
   if (!timeStr) return ""; // Return an empty string if no time is provided
@@ -68,7 +67,7 @@ function formatTime12Hour(timeStr) {
   return `${formattedHours}:${minutes} ${ampm}`;
 }
 
-function TodoList({ todoList, setTodoList, cardState }) {
+function TodoList({ todoList, setTodoList, cardState, memoizedTodoList }) {
   const [expandedTodoId, setExpandedTodoId] = useState(null);
   const allTodoList = JSON.parse(localStorage.getItem("todoList")) || [];
 
@@ -138,8 +137,6 @@ function TodoList({ todoList, setTodoList, cardState }) {
     setTodoList(updatedTodoList);
     localStorage.setItem("todoList", JSON.stringify(updatedTodoList));
   };
-
-  const memoizedTodoList = useMemo(() => [...todoList].reverse(), [todoList]);
 
   return (
     <>
