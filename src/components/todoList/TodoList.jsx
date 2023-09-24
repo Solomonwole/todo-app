@@ -146,7 +146,10 @@ function TodoList({ todoList, setTodoList, cardState }) {
                           }
                         />
 
-                        <Stack onClick={() => toggleDescription(todo.id)}>
+                        <Stack
+                          onClick={() => toggleDescription(todo.id)}
+                          sx={{ cursor: "pointer" }}
+                        >
                           <Stack
                             direction="row"
                             alignItems="center"
@@ -182,12 +185,6 @@ function TodoList({ todoList, setTodoList, cardState }) {
                           <Typography variant="h4" mt={2}>
                             {todo.title}
                           </Typography>
-
-                          {expandedTodoId === todo.id && (
-                            <Typography variant="body1" mt={2}>
-                              {todo.description}
-                            </Typography>
-                          )}
                         </Stack>
                       </Stack>
 
@@ -198,6 +195,15 @@ function TodoList({ todoList, setTodoList, cardState }) {
                       >
                         <FcFullTrash />
                       </IconButton>
+                    </Stack>
+
+                    <Stack direction="row" alignItems="center" spacing={2}>
+                      <BsFillCheckCircleFill color="transparent" size={30} />
+                      {expandedTodoId === todo.id && (
+                        <Typography variant="body1" mt={2}>
+                          {todo.description}
+                        </Typography>
+                      )}
                     </Stack>
                   </Box>
                 </li>
