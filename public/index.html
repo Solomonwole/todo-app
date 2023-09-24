@@ -2,13 +2,26 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
+    <link rel="icon" href="%PUBLIC_URL%/logo192.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1" />
+    <meta name="theme-color" content="#FFFFFF" />
+
+    <meta name="description" content="Organize and manage your tasks efficiently with our Todo List web application. Stay productive and never forget important tasks.">
+    <link rel="canonical" href="https://www.yourwebsite.com/todo-list" />
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Your Todo List App">
+    <meta property="og:description" content="Organize and manage your tasks efficiently with our Todo List web application. Stay productive and never forget important tasks.">
+    <meta property="og:image" content="%PUBLIC_URL%/logo192.png">
+    <meta property="og:url" content="https://www.yourwebsite.com/todo-list">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Your Todo List App">
+    <meta name="twitter:description" content="Organize and manage your tasks efficiently with our Todo List web application. Stay productive and never forget important tasks.">
+    <meta name="twitter:image" content="%PUBLIC_URL%/logo192.png">
+    
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -24,7 +37,7 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>My Todo List App | Manage Tasks Efficiently</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -40,4 +53,17 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "WebApplication",
+      "name": "My Todo List App",
+      "description": "An efficient task management tool to help you stay organized.",
+      "url": "https://www.yourwebsite.com/todo-list",
+      "image": "https://www.yourwebsite.com/images/todo-list.png",
+      "operatingSystem": "Cross-platform",
+      "applicationCategory": "Task Management"
+    }
+    </script>
+    
 </html>

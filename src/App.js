@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { ThemeProvider } from "@mui/material";
+import theme from "./mui/theme";
+import HomePage from "./screen/HomePage";
+import Landing from "./components/landing/Landing";
+import { useEffect, useState } from "react";
 function App() {
+  const approvedBool = localStorage.getItem("approved");
+
+  const [approved, setApproved] = useState(true);
+
+  useEffect(() => {
+    if (approvedBool) {
+      setApproved(true);
+    } else {
+      setApproved(false);
+    }
+  }, [approvedBool]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ThemeProvider theme={theme}>
+        {approved ? <HomePage /> : <Landing setApproved={setApproved} />}
+      </ThemeProvider>
+    </>
   );
 }
 
