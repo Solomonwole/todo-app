@@ -60,7 +60,7 @@ function HomePage() {
   const pendingCount = allTodoList.filter((todo) => !todo.done).length;
 
   const handleDelete = () => {
-    localStorage.clear();
+    localStorage.removeItem("todoList");
     setTodoList([]);
   };
   return (
