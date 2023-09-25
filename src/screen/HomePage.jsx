@@ -142,12 +142,13 @@ function HomePage() {
               direction="row"
               justifyContent="space-between"
               alignItems="center"
+              mt={5} mb={3}
             >
-              <Typography variant="h2" mt={5} mb={3}>
+              <Typography variant="h2" >
                 {listTitle}
               </Typography>
 
-              <Stack direction="row" alignItems="center" spacing={2}>
+              <Stack direction="row" alignItems="center" spacing={1}>
                 {memoizedTodoList.length > 2 && (
                   <Chip
                     label="Delete All"

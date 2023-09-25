@@ -173,11 +173,12 @@ function TodoList({ todoList, setTodoList, cardState, memoizedTodoList }) {
                         <Stack
                           onClick={() => toggleDescription(todo.id)}
                           sx={{ cursor: "pointer" }}
+                          spacing={1}
                         >
                           <Stack
                             direction="row"
                             alignItems="center"
-                            spacing={2}
+                            spacing={1}
                           >
                             <Stack
                               direction="row"
@@ -224,11 +225,10 @@ function TodoList({ todoList, setTodoList, cardState, memoizedTodoList }) {
                     </Stack>
 
                     <Box sx={{ display: "flex", gap: 2 }}>
-                      <BsFillCheckCircleFill color="transparent" size={30} />
+                      
                       {expandedTodoId === todo.id && (
-                        // <Typography variant="body1" mt={2}>
-                        //   {todo.description}
-                        // </Typography>
+                       <>
+                       <BsFillCheckCircleFill color="transparent" size={30} />
                         <Box
                           className="desc"
                           width="90%"
@@ -242,6 +242,7 @@ function TodoList({ todoList, setTodoList, cardState, memoizedTodoList }) {
                             }}
                           />
                         </Box>
+                       </>
                       )}
                     </Box>
                   </Box>
@@ -295,7 +296,7 @@ const style = {
     background: "#F4F7FF",
     padding: "16px",
     borderRadius: "8px",
-    marginBottom: "16px",
+    // marginBottom: "16px",
   },
   checkbox: {
     background: "#fff",
