@@ -246,7 +246,7 @@ function HomePage() {
               }}
               onClick={() => setOpen(true)}
             >
-              <BsPlusLg color="#fff" />
+              <BsPlusLg color="#fff" size={30} />
             </Fab>
           </Stack>
         </Box>
