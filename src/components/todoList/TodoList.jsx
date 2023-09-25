@@ -87,52 +87,64 @@ function TodoList({ todoList, setTodoList, cardState, memoizedTodoList }) {
     }
   };
 
-  const toggleDone = (id) => {
-    const today = new Date().toISOString().split("T")[0];
-    const allTodoList = JSON.parse(localStorage.getItem("todoList")) || [];
-    let updatedTodoList = [];
+//   const toggleDone = (id) => {
+//     const today = new Date().toISOString().split("T")[0];
+//     const allTodoList = JSON.parse(localStorage.getItem("todoList")) || [];
+//     let updatedTodoList = [];
 
-    if (cardState === 0) {
-      // Today
-      updatedTodoList = allTodoList
-        .filter((todo) => todo.date === today)
-        .map((todo) => {
-          if (todo.id === id) {
-            return { ...todo, done: !todo.done };
-          }
-          return todo;
-        });
-    } else if (cardState === 1) {
-      // All
-      updatedTodoList = allTodoList.map((todo) => {
-        if (todo.id === id) {
-          return { ...todo, done: !todo.done };
-        }
-        return todo;
-      });
-    } else if (cardState === 2) {
-      // Done
-      updatedTodoList = allTodoList
-        .filter((todo) => todo.done)
-        .map((todo) => {
-          if (todo.id === id) {
-            return { ...todo, done: !todo.done };
-          }
-          return todo;
-        });
-    } else if (cardState === 3) {
-      // Pending
-      updatedTodoList = allTodoList
-        .filter((todo) => !todo.done)
-        .map((todo) => {
-          if (todo.id === id) {
-            return { ...todo, done: !todo.done };
-          }
-          return todo;
-        });
-    } else {
-      updatedTodoList = [...todoList];
-    }
+//     if (cardState === 0) {
+//       // Today
+//       updatedTodoList = allTodoList
+//         .filter((todo) => todo.date === today)
+//         .map((todo) => {
+//           if (todo.id === id) {
+//             return { ...todo, done: !todo.done };
+//           }
+//           return todo;
+//         });
+//     } else if (cardState === 1) {
+//       // All
+//       updatedTodoList = allTodoList.map((todo) => {
+//         if (todo.id === id) {
+//           return { ...todo, done: !todo.done };
+//         }
+//         return todo;
+//       });
+//     } else if (cardState === 2) {
+//       // Done
+//       updatedTodoList = allTodoList
+//         .filter((todo) => todo.done)
+//         .map((todo) => {
+//           if (todo.id === id) {
+//             return { ...todo, done: !todo.done };
+//           }
+//           return todo;
+//         });
+//     } else if (cardState === 3) {
+//       // Pending
+//       updatedTodoList = allTodoList
+//         .filter((todo) => !todo.done)
+//         .map((todo) => {
+//           if (todo.id === id) {
+//             return { ...todo, done: !todo.done };
+//           }
+//           return todo;
+//         });
+//     } else {
+//       updatedTodoList = [...todoList];
+//     }
+
+//     setTodoList(updatedTodoList);
+//     localStorage.setItem("todoList", JSON.stringify(updatedTodoList));
+//   };
+
+const toggleDone = (id) => {
+    const updatedTodoList = todoList.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, done: !todo.done }; // Toggle the 'done' property
+      }
+      return todo;
+    });
 
     setTodoList(updatedTodoList);
     localStorage.setItem("todoList", JSON.stringify(updatedTodoList));
