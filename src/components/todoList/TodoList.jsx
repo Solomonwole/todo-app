@@ -87,58 +87,58 @@ function TodoList({ todoList, setTodoList, cardState, memoizedTodoList }) {
     }
   };
 
-//   const toggleDone = (id) => {
-//     const today = new Date().toISOString().split("T")[0];
-//     const allTodoList = JSON.parse(localStorage.getItem("todoList")) || [];
-//     let updatedTodoList = [];
+  //   const toggleDone = (id) => {
+  //     const today = new Date().toISOString().split("T")[0];
+  //     const allTodoList = JSON.parse(localStorage.getItem("todoList")) || [];
+  //     let updatedTodoList = [];
 
-//     if (cardState === 0) {
-//       // Today
-//       updatedTodoList = allTodoList
-//         .filter((todo) => todo.date === today)
-//         .map((todo) => {
-//           if (todo.id === id) {
-//             return { ...todo, done: !todo.done };
-//           }
-//           return todo;
-//         });
-//     } else if (cardState === 1) {
-//       // All
-//       updatedTodoList = allTodoList.map((todo) => {
-//         if (todo.id === id) {
-//           return { ...todo, done: !todo.done };
-//         }
-//         return todo;
-//       });
-//     } else if (cardState === 2) {
-//       // Done
-//       updatedTodoList = allTodoList
-//         .filter((todo) => todo.done)
-//         .map((todo) => {
-//           if (todo.id === id) {
-//             return { ...todo, done: !todo.done };
-//           }
-//           return todo;
-//         });
-//     } else if (cardState === 3) {
-//       // Pending
-//       updatedTodoList = allTodoList
-//         .filter((todo) => !todo.done)
-//         .map((todo) => {
-//           if (todo.id === id) {
-//             return { ...todo, done: !todo.done };
-//           }
-//           return todo;
-//         });
-//     } else {
-//       updatedTodoList = [...todoList];
-//     }
+  //     if (cardState === 0) {
+  //       // Today
+  //       updatedTodoList = allTodoList
+  //         .filter((todo) => todo.date === today)
+  //         .map((todo) => {
+  //           if (todo.id === id) {
+  //             return { ...todo, done: !todo.done };
+  //           }
+  //           return todo;
+  //         });
+  //     } else if (cardState === 1) {
+  //       // All
+  //       updatedTodoList = allTodoList.map((todo) => {
+  //         if (todo.id === id) {
+  //           return { ...todo, done: !todo.done };
+  //         }
+  //         return todo;
+  //       });
+  //     } else if (cardState === 2) {
+  //       // Done
+  //       updatedTodoList = allTodoList
+  //         .filter((todo) => todo.done)
+  //         .map((todo) => {
+  //           if (todo.id === id) {
+  //             return { ...todo, done: !todo.done };
+  //           }
+  //           return todo;
+  //         });
+  //     } else if (cardState === 3) {
+  //       // Pending
+  //       updatedTodoList = allTodoList
+  //         .filter((todo) => !todo.done)
+  //         .map((todo) => {
+  //           if (todo.id === id) {
+  //             return { ...todo, done: !todo.done };
+  //           }
+  //           return todo;
+  //         });
+  //     } else {
+  //       updatedTodoList = [...todoList];
+  //     }
 
-//     setTodoList(updatedTodoList);
-//     localStorage.setItem("todoList", JSON.stringify(updatedTodoList));
-//   };
+  //     setTodoList(updatedTodoList);
+  //     localStorage.setItem("todoList", JSON.stringify(updatedTodoList));
+  //   };
 
-const toggleDone = (id) => {
+  const toggleDone = (id) => {
     const updatedTodoList = todoList.map((todo) => {
       if (todo.id === id) {
         return { ...todo, done: !todo.done }; // Toggle the 'done' property
@@ -187,6 +187,10 @@ const toggleDone = (id) => {
                           sx={{ cursor: "pointer" }}
                           spacing={1}
                         >
+                          <Typography variant="h4" mt={2}>
+                            {todo.title}
+                          </Typography>
+
                           <Stack
                             direction="row"
                             alignItems="center"
@@ -220,10 +224,6 @@ const toggleDone = (id) => {
                               </Stack>
                             )}
                           </Stack>
-
-                          <Typography variant="h4" mt={2}>
-                            {todo.title}
-                          </Typography>
                         </Stack>
                       </Stack>
 
@@ -237,24 +237,26 @@ const toggleDone = (id) => {
                     </Stack>
 
                     <Box sx={{ display: "flex", gap: 2 }}>
-                      
                       {expandedTodoId === todo.id && (
-                       <>
-                       <BsFillCheckCircleFill color="transparent" size={30} />
-                        <Box
-                          className="desc"
-                          width="90%"
-                          sx={{ cursor: "pointer" }}
-                          onClick={() => toggleDescription(todo.id)}
-                          mt={2}
-                        >
-                          <div
-                            dangerouslySetInnerHTML={{
-                              __html: todo.description,
-                            }}
+                        <>
+                          <BsFillCheckCircleFill
+                            color="transparent"
+                            size={30}
                           />
-                        </Box>
-                       </>
+                          <Box
+                            className="desc"
+                            width="90%"
+                            sx={{ cursor: "pointer" }}
+                            onClick={() => toggleDescription(todo.id)}
+                            mt={2}
+                          >
+                            <div
+                              dangerouslySetInnerHTML={{
+                                __html: todo.description,
+                              }}
+                            />
+                          </Box>
+                        </>
                       )}
                     </Box>
                   </Box>
