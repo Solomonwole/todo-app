@@ -296,7 +296,7 @@ const style = {
     background: "#F4F7FF",
     padding: "16px",
     borderRadius: "8px",
-    // marginBottom: "16px",
+    marginBottom: "16px",
   },
   checkbox: {
     background: "#fff",
